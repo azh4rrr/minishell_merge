@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 17:05:35 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/14 18:19:52 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:52:59 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void	resolve_heredoc(t_list *env, char **input, int fd)
 		r++;
 	}
 	write(fd, *input, ft_strlen(*input));
-	write(fd, "\n", 1);
 }

@@ -6,12 +6,11 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:36:52 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/14 15:37:04 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 09:29:22 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	is_redir_char(char c)
 {

@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   utils_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:40:04 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/05/28 17:52:46 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:23:10 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	free_cmd_array(char **cmds)
 {
 	int	i;
 
-	if (!cmds)
+	if (!cmds || !*cmds)
 		return (1);
 	i = 0;
 	while (cmds[i])
-		free(cmds[i++]);
+	{
+		free(cmds[i]);
+		cmds[i] = NULL;
+		i++;
+	}
 	free(cmds);
+	cmds = 	NULL; // Set cmds to NULL after freeing
 	return (1);
 }
 
@@ -39,6 +44,7 @@ int	allocate_token(t_cmd **token, char **cmds)
 		return (1);
 	}
 	(*token)->cmd = NULL;
+	(*token)->redirec = NULL;
 	(*token)->next = NULL;
 	(*token)->prev = NULL; // Initialize prev pointer
 	return (0);

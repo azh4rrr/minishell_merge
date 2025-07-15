@@ -6,22 +6,29 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:52:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/14 16:28:06 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:17:15 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 t_redirec	*create_appropriate_redirection_node(char *filename, int redir_type)
 {
-	if (redir_type == 1)
+
+
+	if (!filename)
+		return (NULL);
+	
+	if (redir_type == 1) 
 		return (create_redirec_node(filename, D_OUTFILE));
-	if (redir_type == 2)
+	else if (redir_type == 2)
 		return (create_redirec_node(filename, D_APPEND));
-	if (redir_type == 3)
+	else if (redir_type == 3) 
 		return (create_redirec_node(filename, D_INFILE));
-	if (redir_type == 4)
+	else if (redir_type == 4)
 		return (create_redirec_node(filename, D_HERDOC));
+	else if (redir_type == 5)
+		return (create_redirec_node(filename, D_HERDOC_Q));
 	return (NULL);
 }
 int	add_redirections(char **tokens, t_redirec **redirec_list)
@@ -33,7 +40,7 @@ int	add_redirections(char **tokens, t_redirec **redirec_list)
 	i = 0;
 	while (tokens[i])
 	{
-		redir_type = check_redirection_type(tokens[i]);
+		redir_type = check_redirection_type(tokens, i);
 		if (redir_type > 0 && tokens[i + 1])
 		{
 			new_node = create_appropriate_redirection_node(tokens[i + 1],
@@ -81,7 +88,7 @@ int	process_special_cmd_cases(t_cmd *current, char *cmd_str)
 			return (1);
 		current->cmd[0] = ft_strdup(cmd_str);
 		if (!current->cmd[0])
-			return (free(current->cmd) ,1);
+			return (free(current->cmd), 1);
 		current->cmd[1] = NULL;
 		return (0);
 	}

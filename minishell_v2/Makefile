@@ -16,49 +16,50 @@ READLINE_DIR = $(shell brew --prefix readline)
 LIB		= ./libft/libft.a
 
 # Source files
-SRC =	minishell.c									\
-		./parssing/parse_redir.c 					\
-		./parssing/parse_redir_utils.c 				\
-		./parssing/parse_redir_utils_b.c 			\
-		./parssing/redirection.c 					\
-		./parssing/syntax_handle.c 					\
-		./parssing/utils_a.c 						\
-		./parssing/utils_b.c 						\
-		./parssing/utils_c.c 						\
-		./parssing/expansion.c 						\
-		./parssing/expansion_utils.c 				\
-		./parssing/expansion_utils_b.c 				\
-		./parssing/special_split.c 					\
-		./execution/builtin/built_in.c				\
-		./execution/builtin/cd.c					\
-		./execution/builtin/unset.c					\
-		./execution/builtin/echo.c					\
-		./execution/builtin/exit.c					\
-		./execution/builtin/export.c				\
-		./execution/builtin/export_utils.c			\
-		./execution/execution.c						\
-		./execution/fork.c							\
-		./execution/get_next_line.c					\
-		./execution/redirections.c					\
-		./execution/utils_std.c						\
-		./execution/get_path.c						\
-		./execution/heredoc.c						\
-		./execution/error.c							\
-		./execution/signals.c						\
-		./execution/environment.c					\
-		./execution/environment_utils.c				\
-		./execution/list_utils.c					\
-		./execution/leaks_mem.c						\
-		./execution/leaks_fd.c						\
-		./execution/exit_status.c					\
-		./EVP/env_expander.c						\
-		./EVP/env_heredoc.c							\
-		./EVP/env_leaks.c							\
-		./EVP/exp_special.c							\
-		./EVP/utils_env.c							\
 
-HDR =	minishell.h					\
-		./parsing/include/syntax.h	\
+SRC =	minishell.c										\
+		./parssing/redirecting/parse_redir.c 			\
+		./parssing/redirecting/parse_redir_utils.c 		\
+		./parssing/redirecting/parse_redir_utils_b.c 	\
+		./parssing/redirecting/redirection.c 			\
+		./parssing/utils/utils_a.c 						\
+		./parssing/utils/utils_b.c 						\
+		./parssing/utils/utils_c.c 						\
+		./parssing/expansion/expansion.c 				\
+		./parssing/expansion/expansion_utils.c 			\
+		./parssing/expansion/expansion_utils_b.c 		\
+		./parssing/special_split.c 						\
+		./parssing/syntax_handle.c 						\
+		./execution/builtin/built_in.c					\
+		./execution/builtin/cd.c						\
+		./execution/builtin/unset.c						\
+		./execution/builtin/echo.c						\
+		./execution/builtin/exit.c						\
+		./execution/builtin/export.c					\
+		./execution/builtin/export_utils.c				\
+		./execution/execution.c							\
+		./execution/fork.c								\
+		./execution/get_next_line.c						\
+		./execution/redirections.c						\
+		./execution/utils_std.c							\
+		./execution/get_path.c							\
+		./execution/heredoc.c							\
+		./execution/error.c								\
+		./execution/signals.c							\
+		./execution/environment.c						\
+		./execution/environment_utils.c					\
+		./execution/list_utils.c						\
+		./execution/leaks_mem.c							\
+		./execution/leaks_fd.c							\
+		./execution/exit_status.c						\
+		./EVP/env_expander.c							\
+		./EVP/env_heredoc.c								\
+		./EVP/env_leaks.c								\
+		./EVP/exp_special.c								\
+		./EVP/utils_env.c								\
+
+HDR =	minishell.h										\
+		./parsing/include/syntax.h						\
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,11 +6,11 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:41:40 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/06/14 18:46:37 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:23:30 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	arg_create(t_cmd *token, char **cmds)
 {

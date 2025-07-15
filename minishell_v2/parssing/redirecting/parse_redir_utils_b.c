@@ -6,11 +6,11 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:38:09 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/14 15:38:23 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:38:25 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*remove_quotes(char *token)
 {
@@ -85,7 +85,7 @@ int	count_valid_tokens(char **tokens)
 	count = 0;
 	while (tokens[i])
 	{
-		redir_type = check_redirection_type(tokens[i]);
+		redir_type = check_redirection_type(tokens , i);
 		if (redir_type == 0)
 			count++;
 		else if (tokens[i + 1])
@@ -109,7 +109,7 @@ char	*build_cmd_string(char **tokens, int token_count)
 	i = 0;
 	while (tokens[i])
 	{
-		if (check_redirection_type(tokens[i]) > 0 && tokens[i + 1])
+		if (check_redirection_type(tokens, i) > 0 && tokens[i + 1])
 			i += 2;
 		else
 		{

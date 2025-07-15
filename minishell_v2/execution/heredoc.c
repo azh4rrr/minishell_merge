@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:22:28 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/07/14 18:28:18 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:21:19 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	ft_putstr_expane(t_list *env, char *line, int fd)
 		if (line[i] == '$')
 		{
 			j = i + 1;
-			while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
+			while (line[j] && (ft_isalnum(line[j]) || line[j] == '_')) // $@ // $+ // $"USER"
 				j++;
+			// if (j == i + 1)
 			key = ft_substr(line, i + 1, j - (i + 1));
 			value = get_value(env, key);
 			if (key)
@@ -36,7 +37,7 @@ void	ft_putstr_expane(t_list *env, char *line, int fd)
 			i = j;
 		}
 		if (line[i] != '\0')
-			write(fd, &line[i], 1);
+			write(fd, &line[i], 1);  
 		i++;
 	}
 }
@@ -59,7 +60,8 @@ void	herdoc_read(t_list *env, t_cmd *tmp, char *dlm, t_type expand)
 		if (expand == D_HERDOC_Q)
 			ft_putstr_fd(line, tmp->fd_herdoc[1]);
 		else
-			resolve_heredoc(env, &line, tmp->fd_herdoc[1]);
+			ft_putstr_expane(env, line, tmp->fd_herdoc[1]);  
+		// resolve_heredoc(env, &line, tmp->fd_herdoc[1]);
 		free(line);
 	}
 	if (line)

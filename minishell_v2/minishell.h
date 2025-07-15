@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/14 18:37:45 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:34:29 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ t_redirec				*create_redirec_node(char *name, t_type type);
 void					add_redirec_node(t_redirec **head, t_redirec *new);
 void					free_redirec_list(t_redirec *head);
 void					print_redirec_list(t_redirec *head);
-int						check_redirection_type(const char *str);
+int						check_redirection_type(char **str, int i);
 int						first_token_is_fully_quoted(char *cmd_str);
 int						is_redir_char(char c);
 t_redirec				*create_appropriate_redirection_node(char *filename,
@@ -349,7 +349,7 @@ void					cleanup_shell(t_shell **shell);
 void					p2char(char ***ptr);
 void					p1char(char **ptr);
 // leaks fd
-void clear_all_pipes(t_cmd *cmd);
+void					clear_all_pipes(t_cmd *cmd);
 void					close_fd(int *fd);
 void					initialize_command_fds(t_cmd *cmd);
 // signals

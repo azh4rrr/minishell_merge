@@ -6,11 +6,11 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 12:00:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/14 17:24:15 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 09:45:47 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	init_expand(t_exp *exp)
 {

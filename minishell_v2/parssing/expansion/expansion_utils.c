@@ -6,11 +6,11 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:03:36 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/14 17:54:18 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 09:28:07 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	calculate_expanded_length(char *str, t_shell *shell)
 {

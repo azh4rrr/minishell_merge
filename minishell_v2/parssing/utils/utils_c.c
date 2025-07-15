@@ -6,11 +6,11 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 18:00:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/14 17:01:49 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/15 09:30:28 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	is_whitespace(char c)
 {
