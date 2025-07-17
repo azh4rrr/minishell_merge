@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:52:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/15 13:17:15 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:21:23 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 t_redirec	*create_appropriate_redirection_node(char *filename, int redir_type)
 {
-
-
 	if (!filename)
 		return (NULL);
-	
-	if (redir_type == 1) 
+	if (redir_type == 1)
 		return (create_redirec_node(filename, D_OUTFILE));
 	else if (redir_type == 2)
 		return (create_redirec_node(filename, D_APPEND));
-	else if (redir_type == 3) 
+	else if (redir_type == 3)
 		return (create_redirec_node(filename, D_INFILE));
 	else if (redir_type == 4)
 		return (create_redirec_node(filename, D_HERDOC));

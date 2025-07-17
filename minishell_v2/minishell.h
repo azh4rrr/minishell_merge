@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/17 10:01:34 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:06:51 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ typedef enum s_type
 	D_HERDOC,
 	D_HERDOC_Q
 }						t_type;
+
+typedef struct s_splt
+{
+	char				**tokens;
+	int					i;
+	int					token_idx;
+	int					start;
+	int					in_single;
+	int					in_double;
+}					t_splt;
 
 typedef struct s_amb
 {
@@ -172,26 +182,10 @@ typedef struct s_expa
 
 /* The main parsing function */
 
-int	parse_commands(char *line, t_shell *var);
-
-
+int						parse_commands(char *line, t_shell *var);
 
 /* Heredock expansion */
-void					resolve_heredoc(t_list *env, char **input, int fd);
-char					*env_value(char *key, t_list *env);
-char	*key_not_found(char **content, int pos_key,
-							int len_key);
-char	*key_value(char **content, char *v_env, int pos,
-							int len_key);
-void					env_leaks(t_list *env);
-bool					is_special(char c, bool f_quotes);
-int						count_word(char *content);
-int	expand_meta(char **content, int pos, int r,
-							bool f_quotes);
-bool					is_valid_key(char c);
-void					set_var_exp(int *v1, int *v2, int *v3, int v4);
-void					increment(int *v1, int *v2);
-char					*cdup(int size, char *content);
+void					expand_cmd_heredoc(char **cmd, t_shell *shell, int fd);
 
 /* Expansion functions*/
 void					init_expand(t_exp *exp);
@@ -202,7 +196,7 @@ void					expand_cmd_list(t_cmd *cmd_list, t_shell *shell);
 int						calculate_expanded_length(char *str, t_shell *shell);
 char					*expand_variables_in_token(char *token, t_shell *shell);
 void					expand_cmd_array(char **cmd, t_shell *shell);
-void	expand_redirection_list(t_redirec *redirec,
+void					expand_redirection_list(t_redirec *redirec,
 							t_shell *shell);
 char					*get_expanded_value(char *var_name, t_shell *shell);
 void					remove_quotes_from_cmd_array(char **cmd);
@@ -216,15 +210,15 @@ void					print_redirec_list(t_redirec *head);
 int						check_redirection_type(char **str, int i);
 int						first_token_is_fully_quoted(char *cmd_str);
 int						is_redir_char(char c);
-t_redirec	*create_appropriate_redirection_node(char *filename,
+t_redirec				*create_appropriate_redirection_node(char *filename,
 							int redir_type);
-int	add_redirections(char **tokens,
+int						add_redirections(char **tokens,
 							t_redirec **redirec_list);
-char	*parse_redirections(char *cmd_str,
+char					*parse_redirections(char *cmd_str,
 							t_redirec **redirec_list);
-int	process_special_cmd_cases(t_cmd *current,
+int						process_special_cmd_cases(t_cmd *current,
 							char *cmd_str);
-int	setup_cmd_struct_with_redirection(t_cmd *current,
+int						setup_cmd_struct_with_redirection(t_cmd *current,
 							char *cmd_str);
 char					*remove_quotes(char *token);
 char					**tokenize_with_redirections(char *cmd_str);
@@ -232,13 +226,13 @@ int						count_valid_tokens(char **tokens);
 char					*build_cmd_string(char **tokens, int token_count);
 
 /* Special split functions */
-void	update_quotes_and_skip(char *str, int *i,
+void					update_quotes_and_skip(char *str, int *i,
 							int *in_single, int *in_double, char delimiter);
-int	count_and_skip_delimiters(char *str, int *i,
+int						count_and_skip_delimiters(char *str, int *i,
 							char delimiter);
 char					*extract_single_token(char *str, int start, int end);
 void					cleanup_tokens(char **tokens, int count);
-char	**allocate_and_extract(char *str, char delimiter,
+char					**allocate_and_extract(char *str, char delimiter,
 							int token_count);
 char					**quote_aware_split(char *str, char delimiter);
 
@@ -269,7 +263,7 @@ void					free_cmd_list(t_cmd *token);
 int						count_tokens_with_quotes(char *str, char delimiter);
 int						skip_whitespace(char *str, int start);
 int						is_whitespace(char c);
-int	find_next_char_outside_quotes(char *str, char target,
+int						find_next_char_outside_quotes(char *str, char target,
 							int start);
 
 /*Quote removal after expansion */
@@ -321,7 +315,7 @@ void					execute_builtin(char **cmd, t_shell *val);
 int						is_builtin(char *cmd);
 int						ft_exit(char **cmd, t_shell **shell);
 //	//export
-void	add_export_list(t_list **env, char *value, char *key,
+void					add_export_list(t_list **env, char *value, char *key,
 							bool eg);
 void					sort_export(t_list *var);
 int						export_new(char *str, t_shell *var);

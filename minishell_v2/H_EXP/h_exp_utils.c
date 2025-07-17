@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils.c                                  :+:      :+:    :+:   */
+/*   h_exp_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/14 15:03:36 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 14:02:54 by azmakhlo         ###   ########.fr       */
+/*   Created: 2025/07/17 12:12:30 by azmakhlo          #+#    #+#             */
+/*   Updated: 2025/07/17 12:27:11 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
 int	calculate_expanded_length(char *str, t_shell *shell)
 {
@@ -55,14 +55,12 @@ char	*expand_variables_in_token(char *token, t_shell *shell)
 		return (NULL);
 	while (token[exp.i])
 	{
-		if (token[exp.i] == '\'' && exp.in_double == 0)
+		if (token[exp.i] == '\'' && !exp.in_double)
 			exp.in_single = !exp.in_single;
-		else if (token[exp.i] == '"' && exp.in_single == 0)
+		else if (token[exp.i] == '"' && !exp.in_single)
 			exp.in_double = !exp.in_double;
 		if (token[exp.i] == '$' && !exp.in_single)
 		{
-			if(token[exp.i + 1] == '\0')
-				return (ft_strdup("$"));
 			exp.var_len = get_var_len(token, exp.i);
 			if (exp.var_len > 1)
 			{
@@ -88,8 +86,8 @@ char	*expand_variables_in_token(char *token, t_shell *shell)
 
 void	expand_cmd_array(char **cmd, t_shell *shell)
 {
-	int		i;
-	char	*expanded;
+	int i;
+	char *expanded;
 
 	if (!cmd || !shell)
 		return ;
@@ -104,37 +102,4 @@ void	expand_cmd_array(char **cmd, t_shell *shell)
 		}
 		i++;
 	}
-}
-
-void	expand_redirection_list(t_redirec *redirec, t_shell *shell)
-{
-	t_redirec	*current;
-	char		*expanded;
-
-	if (!redirec || !shell)
-		return ;
-	current = redirec;
-	while (current)
-	{
-		expanded = expand_variables_in_token(current->name, shell);
-		if (expanded && current->type != D_HERDOC && current->type != D_HERDOC_Q)
-		{
-			free(current->name);
-			current->name = expanded;
-		}
-		current = current->next;
-	}
-}
-
-void	p2char(char ***ptr)
-{
-	int r;
-
-	if (!ptr || !*ptr)
-		return ;
-	r = 0;
-	while ((*ptr)[r])
-		free((*ptr)[r++]);
-	free(*ptr);
-	*ptr = NULL;
 }

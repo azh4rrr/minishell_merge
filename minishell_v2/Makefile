@@ -19,6 +19,7 @@ LIB		= ./libft/libft.a
 
 SRC =	minishell.c										\
 		./parsing/parsing.c								\
+		./H_EXP/h_exp.c								\
 		./parsing/redirecting/parse_redir.c 			\
 		./parsing/redirecting/parse_redir_utils.c 		\
 		./parsing/redirecting/parse_redir_utils_b.c 	\
@@ -53,11 +54,6 @@ SRC =	minishell.c										\
 		./execution/leaks_mem.c							\
 		./execution/leaks_fd.c							\
 		./execution/exit_status.c						\
-		./EVP/env_expander.c							\
-		./EVP/env_heredoc.c								\
-		./EVP/env_leaks.c								\
-		./EVP/exp_special.c								\
-		./EVP/utils_env.c								\
 
 HDR =	minishell.h										\
 		./parsing/include/syntax.h						\

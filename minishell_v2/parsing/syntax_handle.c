@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 17:50:24 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/15 16:22:50 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:20:27 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	handle_pipe(char *line)
 		if (!ft_strncmp(tokens[i], "|", 1))
 		{
 			if (i == 0 || !ft_strncmp(tokens[i + 1], "|", 1) || !tokens[i + 1])
-				return (free_cmd_array(tokens) , 1);
+				return (free_cmd_array(tokens), 1);
 			if (!redire_check(tokens[i - 1]))
 				return (free_cmd_array(tokens), 1);
 		}

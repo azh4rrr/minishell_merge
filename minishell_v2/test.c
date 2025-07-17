@@ -41,7 +41,7 @@ char	*ft_strncpy(char *dest, const char *src, int n)
 	return (dest);
 }
 
-int	quoted(char *s)
+int	quoted_h(char *s)
 {
 	if (ft_strchr(s, '\''))
 		return (1);
@@ -49,20 +49,20 @@ int	quoted(char *s)
 		return (2);
 	return (0);
 }
-char	*add_quotes(char *s)
+char	*add_quotes_h_h_h(char *s)
 {
 	char	*d;
 
 	d = malloc((ft_strlen(s) * 3) + 1);
-	if (!s || quoted(s) == 0)
+	if (!s || quoted_h(s) == 0)
 		return (NULL);
-	if (quoted(s) == 1)
+	if (quoted_h(s) == 1)
 	{
 		d[0] = '"';
 		ft_strncpy(&d[1], s, ft_strlen(s));
 		d[ft_strlen(s)] = '"';
 	}
-	else if (quoted(s) == 2)
+	else if (quoted_h(s) == 2)
 	{
 		d[0] = '\'';
 		ft_strncpy(&d[1], s, ft_strlen(s));
@@ -76,6 +76,6 @@ char	*add_quotes(char *s)
 int	main(void)
 {
 	char *line = malloc(100);
-	line = add_quotes("testing \"");
+	line = add_quotes_h_h("testing \"");
 	printf("%s", line);
 }

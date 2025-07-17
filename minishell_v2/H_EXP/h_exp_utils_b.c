@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils_b.c                                :+:      :+:    :+:   */
+/*   h_exp_utils_b.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/14 15:10:11 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 12:26:21 by azmakhlo         ###   ########.fr       */
+/*   Created: 2025/07/17 12:14:47 by azmakhlo          #+#    #+#             */
+/*   Updated: 2025/07/17 12:22:59 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-int	quoted(char *s)
+int	quoted_h(char *s)
 {
 	if (ft_strchr(s, '\''))
 		return (1);
@@ -20,7 +20,7 @@ int	quoted(char *s)
 		return (2);
 	return (0);
 }
-char	*add_quotes(char *s)
+char	*add_quotes_h(char *s)
 {
 	char	*d;
 	size_t	len;
@@ -28,7 +28,7 @@ char	*add_quotes(char *s)
 
 	if (!s)
 		return (NULL);
-	quote_type = quoted(s);
+	quote_type = quoted_h(s);
 	len = ft_strlen(s);
 	d = malloc(len + 3);
 	if (!d || quote_type == 0)
@@ -58,7 +58,7 @@ char	*get_expanded_value(char *var_name, t_shell *shell)
 	if (!var_name)
 		return (ft_strdup(""));
 	value = get_env_value(shell->env, var_name);
-	quot_s = add_quotes(value);
+	quot_s = add_quotes_h(value);
 	if (quot_s)
 		return (quot_s);
 	else if (value)
@@ -83,25 +83,5 @@ void	remove_quotes_from_cmd_array(char **cmd)
 			cmd[i] = unquoted;
 		}
 		i++;
-	}
-}
-
-void	remove_quotes_from_redirection_list(t_redirec *redirec)
-{
-	t_redirec	*current;
-	char		*unquoted;
-
-	if (!redirec)
-		return ;
-	current = redirec;
-	while (current)
-	{
-		unquoted = remove_quotes(current->name);
-		if (unquoted)
-		{
-			free(current->name);
-			current->name = unquoted;
-		}
-		current = current->next;
 	}
 }
