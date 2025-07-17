@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:03:36 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 14:02:54 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:22:48 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*expand_variables_in_token(char *token, t_shell *shell)
 		{
 			if(token[exp.i + 1] == '\0')
 				return (ft_strdup("$"));
+			if(token[exp.i + 1] == '0')
+				return (ft_strdup("minishell"));
 			exp.var_len = get_var_len(token, exp.i);
 			if (exp.var_len > 1)
 			{

@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:22:28 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/07/17 14:14:23 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:26:18 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	herdoc_read(t_shell *shell, t_cmd *tmp, char *dlm, t_type expand)
 			ft_putstr_fd(line, tmp->fd_herdoc[1]);
 		else
 			expand_cmd_heredoc( &line, shell, tmp->fd_herdoc[1]);
-		// resolve_heredoc(&line, shell, tmp->fd_herdoc[1]);
 		free(line);
 	}
 	if (line)
