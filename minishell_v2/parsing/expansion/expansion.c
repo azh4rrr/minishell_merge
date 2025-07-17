@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 12:00:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/15 09:45:47 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:18:42 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	get_var_len(char *str, int start)
 	len = 0;
 	if (str[start] == '$')
 	{
-		if (ft_isalpha(str[start + 1]) || str[start + 1] == '_')
+		if (ft_isalpha(str[start + 1]) || str[start + 1] == '_' || str[start + 1] == '@')
 		{
 			len = 1;
-			while (str[start + len] && (ft_isalnum(str[start + len])
-					|| str[start + len] == '_'))
+			while ((str[start + len] )&& (ft_isalnum(str[start + len])
+					|| str[start + len] == '_' || str[start + len] == '@'))
 				len++;
 		}
 	}
