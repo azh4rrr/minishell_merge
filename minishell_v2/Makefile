@@ -18,18 +18,19 @@ LIB		= ./libft/libft.a
 # Source files
 
 SRC =	minishell.c										\
-		./parssing/redirecting/parse_redir.c 			\
-		./parssing/redirecting/parse_redir_utils.c 		\
-		./parssing/redirecting/parse_redir_utils_b.c 	\
-		./parssing/redirecting/redirection.c 			\
-		./parssing/utils/utils_a.c 						\
-		./parssing/utils/utils_b.c 						\
-		./parssing/utils/utils_c.c 						\
-		./parssing/expansion/expansion.c 				\
-		./parssing/expansion/expansion_utils.c 			\
-		./parssing/expansion/expansion_utils_b.c 		\
-		./parssing/special_split.c 						\
-		./parssing/syntax_handle.c 						\
+		./parsing/parsing.c								\
+		./parsing/redirecting/parse_redir.c 			\
+		./parsing/redirecting/parse_redir_utils.c 		\
+		./parsing/redirecting/parse_redir_utils_b.c 	\
+		./parsing/redirecting/redirection.c 			\
+		./parsing/utils/utils_a.c 						\
+		./parsing/utils/utils_b.c 						\
+		./parsing/utils/utils_c.c 						\
+		./parsing/expansion/expansion.c 				\
+		./parsing/expansion/expansion_utils.c 			\
+		./parsing/expansion/expansion_utils_b.c 		\
+		./parsing/special_split.c 						\
+		./parsing/syntax_handle.c 						\
 		./execution/builtin/built_in.c					\
 		./execution/builtin/cd.c						\
 		./execution/builtin/unset.c						\

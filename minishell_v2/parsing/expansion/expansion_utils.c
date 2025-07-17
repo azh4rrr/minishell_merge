@@ -6,7 +6,7 @@
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:03:36 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/15 09:28:07 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:21:40 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	expand_redirection_list(t_redirec *redirec, t_shell *shell)
 	while (current)
 	{
 		expanded = expand_variables_in_token(current->name, shell);
-		if (expanded)
+		if (expanded && current->type != D_HERDOC && current->type != D_HERDOC_Q)
 		{
 			free(current->name);
 			current->name = expanded;
