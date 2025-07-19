@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 09:24:41 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 10:03:31 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 00:32:26 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ int	process_line(char *line, t_cmd **token_ptr)
 	return (0);
 }
 
+
 int	parse_commands(char *line, t_shell *var)
 {
+	// char *ex_line;
+	// ex_line = expand_cmd(line, var);
 	if (process_line(line, &var->list) != 0)
 		return (1);
 	if (syntax_error(line))

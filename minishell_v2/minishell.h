@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/17 15:06:51 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/19 19:26:52 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+#include <sys/wait.h>
 
 # define OPEN_FAILD "minishell open faild"
 # define DUP_FAILD "minishell dup faild"
@@ -188,6 +189,7 @@ int						parse_commands(char *line, t_shell *var);
 void					expand_cmd_heredoc(char **cmd, t_shell *shell, int fd);
 
 /* Expansion functions*/
+char 					*expand_cmd(char *token, t_shell *shell);
 void					init_expand(t_exp *exp);
 char					*get_env_value(t_list *env, char *key);
 int						get_var_len(char *str, int start);

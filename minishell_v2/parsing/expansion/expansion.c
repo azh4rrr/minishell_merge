@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 12:00:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 16:18:53 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/19 17:58:36 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	get_var_len(char *str, int start)
 	len = 0;
 	if (str[start] == '$')
 	{
-		if (ft_isalpha(str[start + 1]) || is_symbol(str[start + 1]))
+		if (ft_isalnum(str[start + 1]) || is_symbol(str[start + 1]))
 		{
 			len = 1;
 			while ((str[start + len] )&& (ft_isalnum(str[start + len])
