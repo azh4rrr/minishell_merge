@@ -3,16 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:19:39 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/07/17 14:16:23 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 22:55:01 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
 int		exit_status;
+
+static void	clean_resources(t_shell *var, char *line)
+{
+	free_cmd_list(var->list);
+	free(line);
+}
+
+void	handle_exit_on_eof(t_shell *var)
+{
+	rl_clear_history();
+	free_list(&var->env);
+	free(var);
+	exit(0);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -32,10 +46,13 @@ int	main(int ac, char **av, char **env)
 		var->list = NULL;
 		line = readline("minishell> ");
 		if (!line)
-			exit(0);
-		if (parse_commands(line, var) != 0)
+			handle_exit_on_eof(var);
+		if (parse_input(line, var) != 0)
+		{
+			free(line);
 			continue ;
-		execute_commands(var);
-		free_cmd_list(var->list);
+		}
+		// execute_commands(var);
+		clean_resources(var, line);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:10:11 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 14:02:47 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 23:35:31 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,29 @@ int	quoted(char *s)
 char	*add_quotes(char *s)
 {
 	char	*d;
-	size_t	len;
 	int		quote_type;
 
 	if (!s)
 		return (NULL);
 	quote_type = quoted(s);
-	len = ft_strlen(s);
-	d = malloc(len + 3);
-	if (!d || quote_type == 0)
+	d = malloc(ft_strlen(s) + 3);
+	if (!d)
 		return (NULL);
+	if (quote_type == 0)
+		return (free(d), NULL);
 	if (quote_type == 1)
 	{
 		d[0] = '"';
-		ft_strncpy(d + 1, s, len);
-		d[len + 1] = '"';
+		ft_strncpy(d + 1, s, ft_strlen(s));
+		d[ft_strlen(s) + 1] = '"';
 	}
 	else if (quote_type == 2)
 	{
 		d[0] = '\'';
-		ft_strncpy(d + 1, s, len);
-		d[len + 1] = '\'';
+		ft_strncpy(d + 1, s, ft_strlen(s));
+		d[ft_strlen(s) + 1] = '\'';
 	}
-	d[len + 2] = '\0';
-	return (d);
+	return (d[ft_strlen(s) + 2] = '\0', d);
 }
 
 char	*get_expanded_value(char *var_name, t_shell *shell)

@@ -6,15 +6,21 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 09:24:41 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 18:30:33 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 23:04:15 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_redir_char(char c)
+int	parse_input(char *line, t_shell *var)
 {
-	return (c == '>' || c == '<');
+	char	*pre_line;
+	int		status;
+
+	pre_line = pre_expand_line_if_needed(line, var);
+	status = parse_commands(pre_line, var);
+	free(pre_line);
+	return (status);
 }
 
 int	handle_quotes(char *line)
@@ -35,7 +41,8 @@ int	handle_quotes(char *line)
 				i++;
 			if (line[i] != qt)
 				fl = 0;
-			i++;
+			if (line[i] == qt)
+				i++;
 		}
 		else
 			i++;

@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/20 18:48:33 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 22:09:00 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_token
 typedef struct s_redirec
 {
 	char				*name;// $v
-	t_type				type;// AMG
+	t_type				type; // AMG
 	struct s_redirec	*next;
 }						t_redirec;
 
@@ -182,6 +182,15 @@ typedef struct s_expa
 	char				*key;
 }						t_expa;
 
+typedef struct s_p_exp
+{
+	int					i;
+	int					j;
+	int					changed;
+	size_t				len;
+	char				*result;
+}						t_p_exp;
+
 /*Colors*/
 # define COLORE_RESET "\033[0m"
 # define COLORE_RED "\033[31m"
@@ -198,6 +207,9 @@ typedef struct s_expa
 /* The main parsing function */
 
 int						parse_commands(char *line, t_shell *var);
+int						parse_input(char *line, t_shell *var);
+char					*pre_expand_line_if_needed(char *line, t_shell *shell);
+int						is_var_char(char c);
 
 /* Heredock expansion */
 void					expand_cmd_heredoc(char **cmd, t_shell *shell, int fd);

@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 17:50:24 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 18:30:24 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 22:40:04 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,18 @@ int	handle_pipe(char *line)
 	int		i;
 	char	**tokens;
 
+	i = ft_strlen(line) - 1;
+	while (i >= 0 && (line[i] == ' ' || line[i] == '\t'))
+		i--;
+	if (i >= 0 && line[i] == '|')
+		return (1);
 	if (is_fully_quoted(line))
 		return (0);
 	tokens = tokenize_pipe(line);
 	if (!tokens)
 		return (1);
-	i = 0;
-	while (tokens[i])
+	i = -1;
+	while (tokens[++i])
 	{
 		if (!ft_strncmp(tokens[i], "|", 1))
 		{
@@ -104,20 +109,27 @@ int	handle_pipe(char *line)
 			if (!redire_check(tokens[i - 1]))
 				return (free_cmd_array(tokens), 1);
 		}
-		i++;
 	}
-	free_cmd_array(tokens);
-	return (0);
+	return (free_cmd_array(tokens), 0);
 }
 
 int	syntax_error(char *line)
 {
 	if (handle_pipe(line))
+	{
+		exit_status = 2;
 		return (printf("minishell: syntax error near unexpected token `|'\n"),
 			1);
+	}
 	if (handle_quotes(line))
+	{
+		exit_status = 2;
 		return (printf("minishell: quoting error\n"), 1);
+	}
 	if (handle_redir(line))
+	{
+		exit_status = 2;
 		return (1);
+	}
 	return (0);
 }

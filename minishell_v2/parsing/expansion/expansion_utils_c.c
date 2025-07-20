@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:20:51 by azhar             #+#    #+#             */
-/*   Updated: 2025/07/20 14:27:40 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 23:33:06 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	handle_special_variables(char *token, t_exp *exp)
 		return (exp->result[exp->j++] = '$', exp->i++, 1);
 	if (token[exp->i + 1] == '0')
 	{
-		ft_strlcpy(exp->result + exp->j, "minishell", 10);
+		free(exp->result);
+		exp->result = ft_strdup("minishell");
 		exp->j += 9;
 		exp->i += 2;
 		return (1);

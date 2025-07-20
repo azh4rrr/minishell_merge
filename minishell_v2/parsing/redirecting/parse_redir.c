@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:52:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 14:57:32 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 21:03:43 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ char	*parse_redirections(char *cmd_str, t_redirec **redirec_list)
 	new_cmd = build_cmd_string(tokens, count_valid_tokens(tokens));
 	if (!new_cmd)
 		return (free_cmd_array(tokens), NULL);
-	if (add_redirections(tokens, redirec_list))
-		free_cmd_array(tokens);
+	add_redirections(tokens, redirec_list);
+	free_cmd_array(tokens);
 	return (new_cmd);
 }
 
@@ -110,9 +110,9 @@ int	setup_cmd_struct_with_redirection(t_cmd *current, char *cmd_str)
 		if (!processed_cmd)
 			return (1);
 		current->cmd = quote_aware_split(processed_cmd, ' ');
-		free(processed_cmd);
 		if (!current->cmd)
-			return (1);
+			return (free(processed_cmd), 1);
+		free(processed_cmd);
 	}
 	return (0);
 }

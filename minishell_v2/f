@@ -1,14 +1,10 @@
-total 116
-drwxrwxr-x 7 azhar azhar  4096 Jul 19 18:41 .
-drwxrwxr-x 5 azhar azhar  4096 Jul 19 17:30 ..
-drwxrwxr-x 3 azhar azhar  4096 Jul 19 18:37 execution
--rw-rw-r-- 1 azhar azhar     0 Jul 19 18:41 f
-drwxrwxr-x 2 azhar azhar  4096 Jul 19 18:37 H_EXP
-drwxrwxr-x 2 azhar azhar  4096 Jul 19 18:37 libft
--rw-rw-r-- 1 azhar azhar  2797 Jul 19 17:30 Makefile
--rwxrwxr-x 1 azhar azhar 62560 Jul 19 18:37 minishell
--rw-rw-r-- 1 azhar azhar  1370 Jul 19 17:30 minishell.c
--rw-rw-r-- 1 azhar azhar 10699 Jul 19 17:32 minishell.h
-drwxrwxr-x 5 azhar azhar  4096 Jul 19 18:37 parsing
--rw-rw-r-- 1 azhar azhar  1136 Jul 19 17:30 test.c
-drwxrwxr-x 2 azhar azhar  4096 Jul 19 17:51 .vscode
+execution
+f
+H_EXP
+libft
+Makefile
+minishell
+minishell.c
+minishell.h
+minishell.o
+parsing

@@ -6,11 +6,21 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:19:26 by azhar             #+#    #+#             */
-/*   Updated: 2025/07/20 15:39:45 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 22:08:40 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_var_char(char c)
+{
+	return (c == '_' || c == '?' || c == '*' || c == '@' || ft_isalnum(c));
+}
+
+int	is_redir_char(char c)
+{
+	return (c == '>' || c == '<');
+}
 
 void	init_split(t_split *split, char *str, char delimiter)
 {

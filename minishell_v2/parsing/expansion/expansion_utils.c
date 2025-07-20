@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:03:36 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 14:25:48 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 23:26:41 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	expand_redirection_list(t_redirec *redirec, t_shell *shell)
 			free(current->name);
 			current->name = expanded;
 		}
+		else if (expanded)
+			free(expanded);
 		current = current->next;
 	}
 }

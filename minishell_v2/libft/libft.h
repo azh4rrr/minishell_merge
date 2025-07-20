@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:50:15 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/14 18:40:31 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 21:53:26 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putchar_fd(char c, int fd);
 int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
+char				*ft_strcpy(char *dst, const char *src);
 
 #endif

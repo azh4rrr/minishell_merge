@@ -29,11 +29,11 @@ SRC =	minishell.c										\
 		./parsing/utils/utils_a.c 						\
 		./parsing/utils/utils_b.c 						\
 		./parsing/utils/utils_c.c 						\
+		./parsing/expansion/pre_expand.c				\
 		./parsing/expansion/expansion.c 				\
 		./parsing/expansion/expansion_utils.c 			\
 		./parsing/expansion/expansion_utils_b.c 		\
 		./parsing/expansion/expansion_utils_c.c 		\
-		./parsing/expansion/in_line_expansion.c			\
 		./parsing/special_split.c 						\
 		./parsing/syntax_handle.c 						\
 		./execution/builtin/built_in.c					\
