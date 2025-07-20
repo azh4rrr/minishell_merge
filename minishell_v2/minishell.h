@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/20 15:34:49 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 18:48:33 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 
 # define OPEN_FAILD "minishell open faild"
 # define DUP_FAILD "minishell dup faild"
@@ -48,16 +48,16 @@ typedef enum s_type
 
 typedef struct s_split
 {
-	char	*str;
-	char	delimiter;
-	int		i;
-	int		start;
-	int		token_idx;
-	int		token_count;
-	int		in_single;
-	int		in_double;
-	char	**tokens;
-}			t_split;
+	char				*str;
+	char				delimiter;
+	int					i;
+	int					start;
+	int					token_idx;
+	int					token_count;
+	int					in_single;
+	int					in_double;
+	char				**tokens;
+}						t_split;
 
 typedef struct s_splt
 {
@@ -67,7 +67,7 @@ typedef struct s_splt
 	int					start;
 	int					in_single;
 	int					in_double;
-}					t_splt;
+}						t_splt;
 
 typedef struct s_amb
 {
@@ -89,16 +89,16 @@ typedef struct s_token
 
 typedef struct s_redirec
 {
-	char *name;  // $v
-	t_type type; // AMG
+	char				*name;// $v
+	t_type				type;// AMG
 	struct s_redirec	*next;
 }						t_redirec;
 
 typedef struct s_cmd
 {
-	char **cmd; //
+	char				**cmd;
 	bool				amb;
-	t_redirec *redirec; //
+	t_redirec			*redirec;
 	int					fd_herdoc[2];
 	int					fd_io[2];
 	int					fd_pip[2];
@@ -111,6 +111,7 @@ typedef struct s_exp
 	char				*result;
 	int					i;
 	int					j;
+	int					res;
 	int					var_len;
 	char				*var_name;
 	char				*expanded;
@@ -130,11 +131,11 @@ typedef struct s_paredir
 
 typedef struct s_shell
 {
-	t_cmd *list; //
-	t_list *env; //
+	t_cmd				*list; //
+	t_list				*env; //
 	int					std_backup[2];
 	int					exit_status;
-} t_shell; //
+}						t_shell; //
 
 typedef struct s_spl
 {
@@ -202,7 +203,7 @@ int						parse_commands(char *line, t_shell *var);
 void					expand_cmd_heredoc(char **cmd, t_shell *shell, int fd);
 
 /* Expansion functions*/
-char 					*expand_cmd(char *token, t_shell *shell);
+char					*expand_cmd(char *token, t_shell *shell);
 void					init_expand(t_exp *exp);
 char					*get_env_value(t_list *env, char *key);
 int						get_var_len(char *str, int start);
@@ -216,8 +217,9 @@ void					expand_redirection_list(t_redirec *redirec,
 char					*get_expanded_value(char *var_name, t_shell *shell);
 void					remove_quotes_from_cmd_array(char **cmd);
 void					remove_quotes_from_redirection_list(t_redirec *redirec);
-void	process_dollar_sign(char *token, t_exp *exp, t_shell *shell);
-void	h_quotes(char c, t_exp *exp);
+void					process_dollar_sign(char *token, t_exp *exp,
+							t_shell *shell);
+void					h_quotes(char c, t_exp *exp);
 
 /* Redirection functions */
 t_redirec				*create_redirec_node(char *name, t_type type);
@@ -249,7 +251,7 @@ char					*extract_single_token(char *str, int start, int end);
 void					cleanup_tokens(char **tokens, int count);
 char					**allocate_and_extract(t_split *split);
 char					**quote_aware_split(char *str, char delimiter);
-void	init_split(t_split *split, char *str, char delimiter);
+void					init_split(t_split *split, char *str, char delimiter);
 
 /* Syntax Error functions */
 int						handle_quotes(char *line);

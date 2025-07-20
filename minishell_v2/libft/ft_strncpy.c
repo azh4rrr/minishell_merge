@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 09:20:51 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/14 16:47:26 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:39:21 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strncpy(char *dest, const char *src, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n && src[i])

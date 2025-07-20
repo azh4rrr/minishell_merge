@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:40:04 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 15:23:40 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 18:21:47 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,24 @@ t_cmd	*get_first_cmd(t_cmd *node)
 	while (node->prev)
 		node = node->prev;
 	return (node);
+}
+
+int	is_inside_quotes(char *str, int pos)
+{
+	int	i;
+	int	in_single;
+	int	in_double;
+
+	i = 0;
+	in_single = 0;
+	in_double = 0;
+	while (i <= pos && str[i])
+	{
+		if (str[i] == '\'' && !in_double)
+			in_single = !in_single;
+		else if (str[i] == '"' && !in_single)
+			in_double = !in_double;
+		i++;
+	}
+	return (in_single || in_double);
 }

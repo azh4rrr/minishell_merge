@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:41:40 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 15:24:39 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 18:15:10 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,53 @@ t_cmd	*tokenization(char *line)
 		free(cmds[i++]);
 	free(cmds);
 	return (token);
+}
+
+char	*remove_quotes(char *token)
+{
+	char	*result;
+	int		i;
+	int		j;
+	char	current_quote;
+
+	i = 0;
+	j = 0;
+	current_quote = 0;
+	if (!token)
+		return (NULL);
+	result = malloc(ft_strlen(token) + 1);
+	if (!result)
+		return (NULL);
+	while (token[i])
+	{
+		if (!current_quote && (token[i] == '\'' || token[i] == '"'))
+			current_quote = token[i];
+		else if (current_quote && token[i] == current_quote)
+			current_quote = 0;
+		else
+			result[j++] = token[i];
+		i++;
+	}
+	result[j] = '\0';
+	return (result);
+}
+
+int	count_valid_tokens(char **tokens)
+{
+	int	i;
+	int	count;
+	int	redir_type;
+
+	i = 0;
+	count = 0;
+	while (tokens[i])
+	{
+		redir_type = check_redirection_type(tokens, i);
+		if (redir_type == 0)
+			count++;
+		else if (tokens[i + 1])
+			i++;
+		i++;
+	}
+	return (count);
 }

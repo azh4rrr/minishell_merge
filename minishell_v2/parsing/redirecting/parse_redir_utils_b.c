@@ -6,39 +6,22 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:38:09 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 14:36:07 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 18:15:03 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*remove_quotes(char *token)
+static void	handle_redire_char(char *cmd_str, char *temp_cmd, int *i, int *j)
 {
-	char	*result;
-	int		i;
-	int		j;
-	char	current_quote;
-
-	i = 0;
-	j = 0;
-	current_quote = 0;
-	if (!token)
-		return (NULL);
-	result = malloc(ft_strlen(token) + 1);
-	if (!result)
-		return (NULL);
-	while (token[i])
-	{
-		if (!current_quote && (token[i] == '\'' || token[i] == '"'))
-			current_quote = token[i];
-		else if (current_quote && token[i] == current_quote)
-			current_quote = 0;
-		else
-			result[j++] = token[i];
-		i++;
-	}
-	result[j] = '\0';
-	return (result);
+	if (*i > 0 && cmd_str[*i - 1] != ' ')
+		temp_cmd[(*j)++] = ' ';
+	temp_cmd[(*j)++] = cmd_str[(*i)++];
+	if (cmd_str[*i] && is_redir_char(cmd_str[*i])
+		&& cmd_str[*i] == cmd_str[*i - 1])
+		temp_cmd[(*j)++] = cmd_str[(*i)++];
+	if (cmd_str[*i] && cmd_str[*i] != ' ')
+		temp_cmd[(*j)++] = ' ';
 }
 
 char	*insert_space_around_redirection(char *cmd_str)
@@ -49,22 +32,13 @@ char	*insert_space_around_redirection(char *cmd_str)
 
 	i = 0;
 	j = 0;
-	temp_cmd = (char *)malloc(sizeof(char) * (ft_strlen(cmd_str) * 3 + 1));
+	temp_cmd = malloc(ft_strlen(cmd_str) * 3 + 1);
 	if (!temp_cmd)
 		return (NULL);
 	while (cmd_str[i])
 	{
 		if (is_redir_char(cmd_str[i]) && !is_inside_quotes(cmd_str, i))
-		{
-			if (i > 0 && cmd_str[i - 1] != ' ')
-				temp_cmd[j++] = ' ';
-			temp_cmd[j++] = cmd_str[i++];
-			if (cmd_str[i] && is_redir_char(cmd_str[i])
-				&& cmd_str[i] == cmd_str[i - 1])
-				temp_cmd[j++] = cmd_str[i++];
-			if (cmd_str[i] && cmd_str[i] != ' ')
-				temp_cmd[j++] = ' ';
-		}
+			handle_redire_char(cmd_str, temp_cmd, &i, &j);
 		else
 			temp_cmd[j++] = cmd_str[i++];
 	}
@@ -85,30 +59,31 @@ char	**tokenize_with_redirections(char *cmd_str)
 	return (tokens);
 }
 
-int	count_valid_tokens(char **tokens)
+static char	*append_token_to_cmd(char *cmd, char *token)
 {
-	int	i;
-	int	count;
-	int	redir_type;
+	char	*temp;
+	char	*new_cmd;
 
-	i = 0;
-	count = 0;
-	while (tokens[i])
+	if (cmd[0] != '\0')
 	{
-		redir_type = check_redirection_type(tokens, i);
-		if (redir_type == 0)
-			count++;
-		else if (tokens[i + 1])
-			i++;
-		i++;
+		temp = ft_strjoin(cmd, " ");
+		free(cmd);
+		if (!temp)
+			return (NULL);
+		new_cmd = ft_strjoin(temp, token);
+		free(temp);
 	}
-	return (count);
+	else
+	{
+		new_cmd = ft_strjoin(cmd, token);
+		free(cmd);
+	}
+	return (new_cmd);
 }
 
 char	*build_cmd_string(char **tokens, int token_count)
 {
 	char	*new_cmd;
-	char	*temp;
 	int		i;
 
 	if (token_count == 0)
@@ -123,19 +98,9 @@ char	*build_cmd_string(char **tokens, int token_count)
 			i += 2;
 		else
 		{
-			if (new_cmd[0] != '\0')
-			{
-				temp = ft_strjoin(new_cmd, " ");
-				free(new_cmd);
-				if (!temp)
-					return (NULL);
-				new_cmd = temp;
-			}
-			temp = ft_strjoin(new_cmd, tokens[i++]);
-			free(new_cmd);
-			if (!temp)
+			new_cmd = append_token_to_cmd(new_cmd, tokens[i++]);
+			if (!new_cmd)
 				return (NULL);
-			new_cmd = temp;
 		}
 	}
 	return (new_cmd);

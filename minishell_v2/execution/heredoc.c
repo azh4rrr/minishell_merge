@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:22:28 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/07/17 16:26:18 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:51:41 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	ft_putstr_expane(t_list *env, char *line, int fd)
 		if (line[i] == '$')
 		{
 			j = i + 1;
-			while (line[j] && (ft_isalnum(line[j]) || line[j] == '_')) // $@
-				// $+ // $"USER"
+			while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
 				j++;
-			// if (j == i + 1)
 			key = ft_substr(line, i + 1, j - (i + 1));
 			value = get_value(env, key);
 			if (key)
@@ -61,7 +59,7 @@ void	herdoc_read(t_shell *shell, t_cmd *tmp, char *dlm, t_type expand)
 		if (expand == D_HERDOC_Q)
 			ft_putstr_fd(line, tmp->fd_herdoc[1]);
 		else
-			expand_cmd_heredoc( &line, shell, tmp->fd_herdoc[1]);
+			expand_cmd_heredoc(&line, shell, tmp->fd_herdoc[1]);
 		free(line);
 	}
 	if (line)

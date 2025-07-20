@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_exp_utils_b.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:14:47 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 12:22:59 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:34:38 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	quoted_h(char *s)
 		return (2);
 	return (0);
 }
+
 char	*add_quotes_h(char *s)
 {
 	char	*d;

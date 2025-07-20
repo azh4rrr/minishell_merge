@@ -6,36 +6,11 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:36:52 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 14:57:51 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 18:19:56 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	is_redir_char(char c)
-{
-	return (c == '>' || c == '<');
-}
-
-int	is_inside_quotes(char *str, int pos)
-{
-	int	i;
-	int	in_single;
-	int	in_double;
-
-	i = 0;
-	in_single = 0;
-	in_double = 0;
-	while (i <= pos && str[i])
-	{
-		if (str[i] == '\'' && !in_double)
-			in_single = !in_single;
-		else if (str[i] == '"' && !in_single)
-			in_double = !in_double;
-		i++;
-	}
-	return (in_single || in_double);
-}
 
 int	is_fully_quoted(char *str)
 {
@@ -64,41 +39,60 @@ int	is_fully_quoted(char *str)
 	return (0);
 }
 
-int	first_token_is_fully_quoted(char *cmd_str)
+static void	find_token_boundaries(char *cmd_str, t_paredir *red)
 {
-	t_paredir	red;
-
-	if (!cmd_str)
-		return (0);
-	red.i = 0;
-	while (cmd_str[red.i] && (cmd_str[red.i] == ' ' || cmd_str[red.i] == '\t'))
-		red.i++;
-	if (!cmd_str[red.i])
-		return (0);
-	red.start = red.i;
-	if (cmd_str[red.i] == '"' || cmd_str[red.i] == '\'')
+	red->i = 0;
+	while (cmd_str[red->i] && (cmd_str[red->i] == ' '
+			|| cmd_str[red->i] == '\t'))
+		red->i++;
+	red->start = red->i;
+	if (cmd_str[red->i] == '"' || cmd_str[red->i] == '\'')
 	{
-		red.quote = cmd_str[red.i];
-		red.i++;
-		while (cmd_str[red.i] && cmd_str[red.i] != red.quote)
-			red.i++;
-		if (cmd_str[red.i] == red.quote)
-			red.i++;
+		red->quote = cmd_str[red->i];
+		red->i++;
+		while (cmd_str[red->i] && cmd_str[red->i] != red->quote)
+			red->i++;
+		if (cmd_str[red->i] == red->quote)
+			red->i++;
 	}
 	else
 	{
-		while (cmd_str[red.i] && cmd_str[red.i] != ' '
-			&& cmd_str[red.i] != '\t')
-			red.i++;
+		while (cmd_str[red->i] && cmd_str[red->i] != ' '
+			&& cmd_str[red->i] != '\t')
+			red->i++;
 	}
-	red.end = red.i;
-	red.first_token = malloc(red.end - red.start + 1);
-	if (!red.first_token)
+	red->end = red->i;
+}
+
+static char	*extract_first_token(char *cmd_str)
+{
+	t_paredir	red;
+	char		*first_token;
+
+	find_token_boundaries(cmd_str, &red);
+	if (red.start == red.end)
+		return (NULL);
+	first_token = malloc(red.end - red.start + 1);
+	if (!first_token)
+		return (NULL);
+	ft_strncpy(first_token, cmd_str + red.start, red.end - red.start);
+	first_token[red.end - red.start] = '\0';
+	return (first_token);
+}
+
+int	first_token_is_fully_quoted(char *cmd_str)
+{
+	char	*first_token;
+	int		result;
+
+	if (!cmd_str)
 		return (0);
-	ft_strncpy(red.first_token, cmd_str + red.start, red.end - red.start);
-	red.first_token[red.end - red.start] = '\0';
-	red.result = is_fully_quoted(red.first_token);
-	return (free(red.first_token), red.result);
+	first_token = extract_first_token(cmd_str);
+	if (!first_token)
+		return (0);
+	result = is_fully_quoted(first_token);
+	free(first_token);
+	return (result);
 }
 
 /* Check if command contains only quoted segments and spaces */

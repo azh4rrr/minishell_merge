@@ -39,9 +39,8 @@ int					ft_strlen(const char *s);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
-int					is_space(char c) ;
-int 				ft_strcmp(const char *s1,
-						const char *s2);
+int					is_space(char c);
+int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strchr(const char *s, int c);
 char				**ft_split(const char *s, char c);

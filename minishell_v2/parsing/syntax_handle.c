@@ -6,48 +6,11 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 17:50:24 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 15:38:23 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 18:30:24 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	handle_quotes(char *line)
-{
-	int		i;
-	char	qt;
-	int		fl;
-
-	i = 0;
-	fl = 1;
-	while (line[i])
-	{
-		if (line[i] == '"' || line[i] == '\'')
-		{
-			qt = line[i];
-			i = i + 1;
-			while (line[i] != qt && line[i])
-				i++;
-			if (line[i] != qt)
-				fl = 0;
-			i++;
-		}
-		else
-			i++;
-	}
-	if (fl == 0)
-		return (1);
-	return (0);
-}
-
-int	redire_check(char *line)
-{
-	if (!ft_strncmp(line, ">>", 2) || !ft_strncmp(line, "<<", 2))
-		return (0);
-	else if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1))
-		return (0);
-	return (1);
-}
 
 int	handle_redir(char *line)
 {
@@ -65,15 +28,34 @@ int	handle_redir(char *line)
 		if (!redire_check(cmd[i]) && !cmd[i + 1])
 			return (printf("minishell: syntax error"
 					"near unexpected token `newline'\n"),
-				free_cmd_array(cmd), 1);
+				free_cmd_array(cmd),
+				1);
 		if (!redire_check(cmd[i]) && !redire_check(cmd[i + 1]))
 			return (printf("minishell: syntax error"
 					"near unexpected token `%s'\n",
-					cmd[i + 1]), free_cmd_array(cmd), 1);
+					cmd[i + 1]),
+				free_cmd_array(cmd),
+				1);
 		i++;
 	}
-	free_cmd_array(cmd);
-	return (0);
+	return (free_cmd_array(cmd), 0);
+}
+
+static void	handle_special_char(char *cmd_str, char *temp_cmd, int *i, int *j)
+{
+	if (*i > 0 && cmd_str[*i - 1] != ' ')
+		temp_cmd[(*j)++] = ' ';
+	temp_cmd[(*j)++] = cmd_str[(*i)++];
+	if (cmd_str[*i] && is_redir_char(cmd_str[*i]) && cmd_str[*i] == cmd_str[*i
+			- 1])
+		temp_cmd[(*j)++] = cmd_str[(*i)++];
+	if (cmd_str[*i] && (cmd_str[*i - 1] == '|' || is_redir_char(cmd_str[*i
+					- 1])))
+		temp_cmd[(*j)++] = ' ';
+	if (cmd_str[*i] && cmd_str[*i] == '|')
+		temp_cmd[(*j)++] = cmd_str[(*i)++];
+	if (cmd_str[*i] && cmd_str[*i] != ' ')
+		temp_cmd[(*j)++] = ' ';
 }
 
 char	**tokenize_pipe(char *cmd_str)
@@ -83,7 +65,7 @@ char	**tokenize_pipe(char *cmd_str)
 	int		i;
 	int		j;
 
-	temp_cmd = (char *)malloc(sizeof(char) * (ft_strlen(cmd_str) * 4 + 1));
+	temp_cmd = malloc(ft_strlen(cmd_str) * 4 + 1);
 	if (!temp_cmd)
 		return (NULL);
 	i = 0;
@@ -92,21 +74,7 @@ char	**tokenize_pipe(char *cmd_str)
 	{
 		if ((is_redir_char(cmd_str[i]) || cmd_str[i] == '|')
 			&& !is_inside_quotes(cmd_str, i))
-		{
-			if (i > 0 && cmd_str[i - 1] != ' ')
-				temp_cmd[j++] = ' ';
-			temp_cmd[j++] = cmd_str[i++];
-			if (cmd_str[i] && is_redir_char(cmd_str[i])
-				&& cmd_str[i] == cmd_str[i - 1])
-				temp_cmd[j++] = cmd_str[i++];
-			if (cmd_str[i] && (cmd_str[i - 1] == '|' || is_redir_char(cmd_str[i
-							- 1])))
-				temp_cmd[j++] = ' ';
-			if (cmd_str[i] && cmd_str[i] == '|')
-				temp_cmd[j++] = cmd_str[i++];
-			if (cmd_str[i] && cmd_str[i] != ' ')
-				temp_cmd[j++] = ' ';
-		}
+			handle_special_char(cmd_str, temp_cmd, &i, &j);
 		else
 			temp_cmd[j++] = cmd_str[i++];
 	}
