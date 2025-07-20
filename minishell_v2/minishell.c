@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:19:39 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/07/20 22:55:01 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 23:38:56 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **env)
 			free(line);
 			continue ;
 		}
-		// execute_commands(var);
+		execute_commands(var);
 		clean_resources(var, line);
 	}
 }
