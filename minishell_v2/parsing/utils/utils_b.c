@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:41:40 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/15 16:23:30 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:24:39 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_cmd	*tokenization(char *line)
 	t_cmd	*token;
 	int		i;
 
-	// Use quote-aware split for pipe separation
 	cmds = quote_aware_split(line, '|');
 	if (!cmds)
 		return (NULL);
@@ -63,39 +62,4 @@ t_cmd	*tokenization(char *line)
 		free(cmds[i++]);
 	free(cmds);
 	return (token);
-}
-
-void	print_cmd_list(t_cmd *token)
-{
-	t_cmd	*tmp;
-	int		i;
-
-	tmp = token;
-	while (tmp)
-	{
-		i = 0;
-		printf(COLORE_GREEN "COMMAND:" COLORE_RESET " ");
-		while (tmp->cmd && tmp->cmd[i])
-			printf("[" COLORE_CYAN "%s" COLORE_RESET "]", tmp->cmd[i++]);
-		printf("\n");
-		if (tmp->redirec)
-			print_redirec_list(tmp->redirec);
-		tmp = tmp->next;
-	}
-}
-
-void	free_cmd_node(t_cmd *node)
-{
-	int i;
-
-	if (!node)
-		return ;
-	i = 0;
-	while (node->cmd && node->cmd[i])
-		free(node->cmd[i++]);
-	if (node->cmd)
-		free(node->cmd);
-	if (node->redirec)
-		free_redirec_list(node->redirec);
-	free(node);
 }

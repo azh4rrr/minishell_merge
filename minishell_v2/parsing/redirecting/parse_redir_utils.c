@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:36:52 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 12:21:08 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:57:51 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_fully_quoted(char *str)
 	if (len < 2)
 		return (0);
 	if ((str[0] == '\'' && str[len - 1] == '\'') || (str[0] == '"' && str[len
-			- 1] == '"'))
+				- 1] == '"'))
 	{
 		quote_type = str[0];
 		i = 1;

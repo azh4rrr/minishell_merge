@@ -6,23 +6,11 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 12:00:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/19 17:58:36 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 15:19:54 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	init_expand(t_exp *exp)
-{
-	exp->i = 0;
-	exp->j = 0;
-	exp->in_single = 0;
-	exp->in_double = 0;
-	exp->var_len = 0;
-	exp->expanded = NULL;
-	exp->var_name = NULL;
-	exp->result = NULL;
-}
 
 char	*get_env_value(t_list *env, char *key)
 {
@@ -41,10 +29,6 @@ char	*get_env_value(t_list *env, char *key)
 	return (NULL);
 }
 
-int is_symbol(char c)
-{
-	return (c == '@' || c == '-' ||c == '*');
-}
 int	get_var_len(char *str, int start)
 {
 	int	len;
@@ -52,10 +36,11 @@ int	get_var_len(char *str, int start)
 	len = 0;
 	if (str[start] == '$')
 	{
-		if (ft_isalnum(str[start + 1]) || is_symbol(str[start + 1]))
+		if (ft_isalnum(str[start + 1]) || (str[start + 1] == '@' || str[start
+					+ 1] == '-' || str[start + 1] == '*'))
 		{
 			len = 1;
-			while ((str[start + len] )&& (ft_isalnum(str[start + len])
+			while ((str[start + len]) && (ft_isalnum(str[start + len])
 					|| str[start + len] == '_' || str[start + len] == '@'))
 				len++;
 		}

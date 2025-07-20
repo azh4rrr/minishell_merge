@@ -20,6 +20,8 @@ LIB		= ./libft/libft.a
 SRC =	minishell.c										\
 		./H_EXP/h_exp.c									\
 		./parsing/parsing.c								\
+		./parsing/init_structs.c						\
+		./parsing/cleanup.c								\
 		./parsing/redirecting/parse_redir.c 			\
 		./parsing/redirecting/parse_redir_utils.c 		\
 		./parsing/redirecting/parse_redir_utils_b.c 	\
@@ -30,6 +32,7 @@ SRC =	minishell.c										\
 		./parsing/expansion/expansion.c 				\
 		./parsing/expansion/expansion_utils.c 			\
 		./parsing/expansion/expansion_utils_b.c 		\
+		./parsing/expansion/expansion_utils_c.c 		\
 		./parsing/expansion/in_line_expansion.c			\
 		./parsing/special_split.c 						\
 		./parsing/syntax_handle.c 						\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 17:50:24 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 12:20:27 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:38:23 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ int	handle_redir(char *line)
 	while (cmd[i])
 	{
 		if (!redire_check(cmd[i]) && !cmd[i + 1])
-			return (printf("minishell: syntax error near unexpected token `newline'\n"),
+			return (printf("minishell: syntax error"
+					"near unexpected token `newline'\n"),
 				free_cmd_array(cmd), 1);
 		if (!redire_check(cmd[i]) && !redire_check(cmd[i + 1]))
-			return (printf("minishell: syntax error near unexpected token `%s'\n",
+			return (printf("minishell: syntax error"
+					"near unexpected token `%s'\n",
 					cmd[i + 1]), free_cmd_array(cmd), 1);
 		i++;
 	}
@@ -88,7 +90,6 @@ char	**tokenize_pipe(char *cmd_str)
 	j = 0;
 	while (cmd_str[i])
 	{
-		// If we encounter a special character and we're NOT inside quotes
 		if ((is_redir_char(cmd_str[i]) || cmd_str[i] == '|')
 			&& !is_inside_quotes(cmd_str, i))
 		{
@@ -99,7 +100,7 @@ char	**tokenize_pipe(char *cmd_str)
 				&& cmd_str[i] == cmd_str[i - 1])
 				temp_cmd[j++] = cmd_str[i++];
 			if (cmd_str[i] && (cmd_str[i - 1] == '|' || is_redir_char(cmd_str[i
-						- 1])))
+							- 1])))
 				temp_cmd[j++] = ' ';
 			if (cmd_str[i] && cmd_str[i] == '|')
 				temp_cmd[j++] = cmd_str[i++];
@@ -120,13 +121,8 @@ int	handle_pipe(char *line)
 	int		i;
 	char	**tokens;
 
-	// Skip pipe check for fully quoted commands
 	if (is_fully_quoted(line))
 		return (0);
-	// printf("hehrehheehehhehe---------");
-	// if (line[ft_strlen(line) - 1] == '|' && !is_inside_quotes(line,
-	// 		ft_strlen(line) - 1))
-	// 	return (1);all
 	tokens = tokenize_pipe(line);
 	if (!tokens)
 		return (1);

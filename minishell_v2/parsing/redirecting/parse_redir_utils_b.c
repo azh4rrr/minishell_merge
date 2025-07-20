@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir_utils_b.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:38:09 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/15 11:38:25 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:36:07 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,17 @@ char	*remove_quotes(char *token)
 	return (result);
 }
 
-char	**tokenize_with_redirections(char *cmd_str)
+char	*insert_space_around_redirection(char *cmd_str)
 {
-	char	**tokens;
 	char	*temp_cmd;
 	int		i;
 	int		j;
 
+	i = 0;
+	j = 0;
 	temp_cmd = (char *)malloc(sizeof(char) * (ft_strlen(cmd_str) * 3 + 1));
 	if (!temp_cmd)
 		return (NULL);
-	i = 0;
-	j = 0;
 	while (cmd_str[i])
 	{
 		if (is_redir_char(cmd_str[i]) && !is_inside_quotes(cmd_str, i))
@@ -70,6 +69,17 @@ char	**tokenize_with_redirections(char *cmd_str)
 			temp_cmd[j++] = cmd_str[i++];
 	}
 	temp_cmd[j] = '\0';
+	return (temp_cmd);
+}
+
+char	**tokenize_with_redirections(char *cmd_str)
+{
+	char	**tokens;
+	char	*temp_cmd;
+
+	temp_cmd = insert_space_around_redirection(cmd_str);
+	if (!temp_cmd)
+		return (NULL);
 	tokens = quote_aware_split(temp_cmd, ' ');
 	free(temp_cmd);
 	return (tokens);
@@ -85,7 +95,7 @@ int	count_valid_tokens(char **tokens)
 	count = 0;
 	while (tokens[i])
 	{
-		redir_type = check_redirection_type(tokens , i);
+		redir_type = check_redirection_type(tokens, i);
 		if (redir_type == 0)
 			count++;
 		else if (tokens[i + 1])
@@ -97,9 +107,9 @@ int	count_valid_tokens(char **tokens)
 
 char	*build_cmd_string(char **tokens, int token_count)
 {
-	char *new_cmd;
-	char *temp;
-	int i;
+	char	*new_cmd;
+	char	*temp;
+	int		i;
 
 	if (token_count == 0)
 		return (ft_strdup(""));

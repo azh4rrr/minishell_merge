@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:52:00 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/17 12:21:23 by azmakhlo         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:57:32 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_redirec	*create_appropriate_redirection_node(char *filename, int redir_type)
 		return (create_redirec_node(filename, D_HERDOC_Q));
 	return (NULL);
 }
+
 int	add_redirections(char **tokens, t_redirec **redirec_list)
 {
 	int			i;
@@ -91,6 +92,7 @@ int	process_special_cmd_cases(t_cmd *current, char *cmd_str)
 	}
 	return (-1);
 }
+
 int	setup_cmd_struct_with_redirection(t_cmd *current, char *cmd_str)
 {
 	char	*processed_cmd;

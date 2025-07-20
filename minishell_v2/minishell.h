@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/19 19:26:52 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 15:34:49 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ typedef enum s_type
 	D_HERDOC,
 	D_HERDOC_Q
 }						t_type;
+
+typedef struct s_split
+{
+	char	*str;
+	char	delimiter;
+	int		i;
+	int		start;
+	int		token_idx;
+	int		token_count;
+	int		in_single;
+	int		in_double;
+	char	**tokens;
+}			t_split;
 
 typedef struct s_splt
 {
@@ -203,6 +216,8 @@ void					expand_redirection_list(t_redirec *redirec,
 char					*get_expanded_value(char *var_name, t_shell *shell);
 void					remove_quotes_from_cmd_array(char **cmd);
 void					remove_quotes_from_redirection_list(t_redirec *redirec);
+void	process_dollar_sign(char *token, t_exp *exp, t_shell *shell);
+void	h_quotes(char c, t_exp *exp);
 
 /* Redirection functions */
 t_redirec				*create_redirec_node(char *name, t_type type);
@@ -228,15 +243,13 @@ int						count_valid_tokens(char **tokens);
 char					*build_cmd_string(char **tokens, int token_count);
 
 /* Special split functions */
-void					update_quotes_and_skip(char *str, int *i,
-							int *in_single, int *in_double, char delimiter);
-int						count_and_skip_delimiters(char *str, int *i,
-							char delimiter);
+void					update_quotes_and_skip(t_split *split);
+int						count_and_skip_delimiters(t_split *split);
 char					*extract_single_token(char *str, int start, int end);
 void					cleanup_tokens(char **tokens, int count);
-char					**allocate_and_extract(char *str, char delimiter,
-							int token_count);
+char					**allocate_and_extract(t_split *split);
 char					**quote_aware_split(char *str, char delimiter);
+void	init_split(t_split *split, char *str, char delimiter);
 
 /* Syntax Error functions */
 int						handle_quotes(char *line);
@@ -355,7 +368,6 @@ void					free_list_node(t_list *node);
 void					free_list(t_list **node);
 void					cleanup_shell(t_shell **shell);
 void					p2char(char ***ptr);
-void					p1char(char **ptr);
 // leaks fd
 void					clear_all_pipes(t_cmd *cmd);
 void					close_fd(int *fd);

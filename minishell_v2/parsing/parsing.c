@@ -6,23 +6,11 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 09:24:41 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 00:32:26 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/20 15:22:27 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_cmd_list(t_cmd *token)
-{
-	t_cmd	*next;
-
-	while (token)
-	{
-		next = token->next;
-		free_cmd_node(token);
-		token = next;
-	}
-}
 
 int	process_line(char *line, t_cmd **token_ptr)
 {
@@ -33,11 +21,8 @@ int	process_line(char *line, t_cmd **token_ptr)
 	return (0);
 }
 
-
 int	parse_commands(char *line, t_shell *var)
 {
-	// char *ex_line;
-	// ex_line = expand_cmd(line, var);
 	if (process_line(line, &var->list) != 0)
 		return (1);
 	if (syntax_error(line))

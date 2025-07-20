@@ -1,39 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   special_split.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/20 15:09:07 by azhar             #+#    #+#             */
+/*   Updated: 2025/07/20 15:25:24 by azhar            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void	update_quotes_and_skip(char *str, int *i, int *in_single,
-		int *in_double, char delimiter)
+void	update_quotes_and_skip(t_split *split)
 {
-	while (str[*i])
+	while (split->str[split->i])
 	{
-		if (str[*i] == '\'' && !(*in_double))
-			*in_single = !(*in_single);
-		else if (str[*i] == '"' && !(*in_single))
-			*in_double = !(*in_double);
-		if (str[*i] == delimiter && !(*in_single) && !(*in_double))
+		if (split->str[split->i] == '\'' && !split->in_double)
+			split->in_single = !split->in_single;
+		else if (split->str[split->i] == '"' && !split->in_single)
+			split->in_double = !split->in_double;
+		if (split->str[split->i] == split->delimiter && !split->in_single
+			&& !split->in_double)
 			break ;
-		(*i)++;
+		split->i++;
 	}
 }
 
-int	count_and_skip_delimiters(char *str, int *i, char delimiter)
+int	count_and_skip_delimiters(t_split *split)
 {
-	int	in_single;
-	int	in_double;
-	int	token_count;
-
-	token_count = 0;
-	in_single = 0;
-	in_double = 0;
-	while (str[*i])
+	while (split->str[split->i])
 	{
-		while (str[*i] == delimiter && !in_single && !in_double)
-			(*i)++;
-		if (!str[*i])
+		while (split->str[split->i] == split->delimiter && !split->in_single
+			&& !split->in_double)
+			split->i++;
+		if (!split->str[split->i])
 			break ;
-		token_count++;
-		update_quotes_and_skip(str, i, &in_single, &in_double, delimiter);
+		split->token_count++;
+		update_quotes_and_skip(split);
 	}
-	return (token_count);
+	return (split->token_count);
 }
 
 char	*extract_single_token(char *str, int start, int end)
@@ -55,68 +61,52 @@ char	*extract_single_token(char *str, int start, int end)
 	return (token);
 }
 
-void	cleanup_tokens(char **tokens, int count)
+char	**allocate_and_extract(t_split *split)
 {
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
-}
-
-char	**allocate_and_extract(char *str, char delimiter, int token_count)
-{
-	char	**tokens;
-	int		i;
-	int		token_idx;
-	int		start;
-	int		in_single;
-	int		in_double;
-
-	tokens = malloc(sizeof(char *) * (token_count + 1));
-	if (!tokens)
+	split->tokens = malloc(sizeof(char *) * (split->token_count + 1));
+	if (!split->tokens)
 		return (NULL);
-	i = 0;
-	token_idx = 0;
-	in_single = 0;
-	in_double = 0;
-	while (str[i] && token_idx < token_count)
+	split->i = 0;
+	split->token_idx = 0;
+	split->in_single = 0;
+	split->in_double = 0;
+	while (split->str[split->i] && split->token_idx < split->token_count)
 	{
-		while (str[i] == delimiter && !in_single && !in_double)
-			i++;
-		if (!str[i])
+		while (split->str[split->i] == split->delimiter && !split->in_single
+			&& !split->in_double)
+			split->i++;
+		if (!split->str[split->i])
 			break ;
-		start = i;
-		update_quotes_and_skip(str, &i, &in_single, &in_double, delimiter);
-		tokens[token_idx] = extract_single_token(str, start, i);
-		if (!tokens[token_idx])
-			return (cleanup_tokens(tokens, token_idx), NULL);
-		token_idx++;
+		split->start = split->i;
+		update_quotes_and_skip(split);
+		split->tokens[split->token_idx] = extract_single_token(split->str,
+				split->start, split->i);
+		if (!split->tokens[split->token_idx])
+			return (cleanup_tokens(split->tokens, split->token_idx), NULL);
+		split->token_idx++;
 	}
-	tokens[token_idx] = NULL;
-	return (tokens);
+	split->tokens[split->token_idx] = NULL;
+	return (split->tokens);
 }
 
 char	**quote_aware_split(char *str, char delimiter)
 {
-	int token_count;
-	int i;
-	char **empty_result;
+	t_split	split;
+	char	**empty_result;
 
 	if (!str)
 		return (NULL);
-	i = 0;
-	token_count = count_and_skip_delimiters(str, &i, delimiter);
-	if (token_count == 0)
+	init_split(&split, str, delimiter);
+	count_and_skip_delimiters(&split);
+	if (split.token_count == 0)
 	{
 		empty_result = malloc(sizeof(char *));
 		if (empty_result)
 			empty_result[0] = NULL;
 		return (empty_result);
 	}
-	return (allocate_and_extract(str, delimiter, token_count));
+	split.i = 0;
+	split.in_single = 0;
+	split.in_double = 0;
+	return (allocate_and_extract(&split));
 }
