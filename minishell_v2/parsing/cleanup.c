@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:21:53 by azhar             #+#    #+#             */
-/*   Updated: 2025/07/20 15:39:18 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/21 14:00:07 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	free_cmd_array(char **cmds)
 {
 	int	i;
 
-	if (!cmds || !*cmds)
+	if (!cmds)
 		return (1);
 	i = 0;
 	while (cmds[i])
