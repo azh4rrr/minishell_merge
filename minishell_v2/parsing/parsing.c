@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 09:24:41 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 23:04:15 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/21 01:22:29 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ int	parse_commands(char *line, t_shell *var)
 	if (var->list)
 		return (expand_cmd_list(var->list, var), 0);
 	else
-		return (free(line), 1);
+		return (1);
 }

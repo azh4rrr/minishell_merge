@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:19:39 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/07/20 23:38:56 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/21 01:27:05 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		exit_status;
 static void	clean_resources(t_shell *var, char *line)
 {
 	free_cmd_list(var->list);
+	(void)line;
+	// if(line)
 	free(line);
 }
 
