@@ -10,8 +10,8 @@ SRCS =		ft_strlen.c		ft_strdup.c		\
 			ft_strchr.c		ft_split.c		\
 			ft_putstr_fd.c	ft_putchar_fd.c	\
 			ft_atoi.c		ft_itoi.c		\
-			is_space.c	ft_strlcpy.c		\
-			ft_strcpy.c		\
+			is_space.c		ft_strlcpy.c	\
+			ft_strcpy.c		ft_strcat.c 	\
 
 OBJS = $(SRCS:.c=.o)
 

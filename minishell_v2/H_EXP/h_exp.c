@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:38:51 by azmakhlo          #+#    #+#             */
-/*   Updated: 2025/07/20 18:38:55 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/21 12:53:20 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	process_quotes_and_vars(char *token, t_exp *exp, t_shell *shell)
 			return (2);
 		if (token[exp->i + 1] == '0')
 			return (3);
+		if (token[exp->i + 1] == '?')
+			return (4);
 		exp->var_len = get_var_len(token, exp->i);
 		if (exp->var_len > 1)
 		{
@@ -73,12 +75,12 @@ char	*expand_variables_in_heredoc(char *token, t_shell *shell)
 	while (token[exp.i])
 	{
 		exp.res = process_quotes_and_vars(token, &exp, shell);
-		if (exp.res == -1)
-			return (free(exp.result), ft_strdup(token));
 		if (exp.res == 2)
 			return (free(exp.result), ft_strdup("$\n"));
 		if (exp.res == 3)
 			return (free(exp.result), ft_strdup("minishell\n"));
+		if (exp.res == 4)
+			return (free(exp.result), exit_stats(&exp));
 		if (exp.res > 0)
 			continue ;
 		exp.res = process_regular_chars(token, &exp);

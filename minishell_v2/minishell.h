@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:19:12 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/20 22:09:00 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/21 12:54:38 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,9 @@ int						is_var_char(char c);
 /* Heredock expansion */
 void					expand_cmd_heredoc(char **cmd, t_shell *shell, int fd);
 
+char					*exit_stats(t_exp *exp);
+
 /* Expansion functions*/
-char					*expand_cmd(char *token, t_shell *shell);
 void					init_expand(t_exp *exp);
 char					*get_env_value(t_list *env, char *key);
 int						get_var_len(char *str, int start);

@@ -19,6 +19,7 @@ LIB		= ./libft/libft.a
 
 SRC =	minishell.c										\
 		./H_EXP/h_exp.c									\
+		./H_EXP/h_exp_utils.c							\
 		./parsing/parsing.c								\
 		./parsing/init_structs.c						\
 		./parsing/cleanup.c								\

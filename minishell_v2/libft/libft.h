@@ -6,7 +6,7 @@
 /*   By: azhar <azhar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:50:15 by mbarhoun          #+#    #+#             */
-/*   Updated: 2025/07/20 21:53:26 by azhar            ###   ########.fr       */
+/*   Updated: 2025/07/21 12:51:58 by azhar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void				ft_putchar_fd(char c, int fd);
 int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
 char				*ft_strcpy(char *dst, const char *src);
+char				*ft_strcat(char *dest, const char *src);
 
 #endif
