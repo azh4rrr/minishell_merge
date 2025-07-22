@@ -6,7 +6,7 @@
 
 [![Made with C](https://img.shields.io/badge/Made%20with-C-blue?style=for-the-badge&logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![42 School](https://img.shields.io/badge/42-School-000000?style=for-the-badge&logo=42)](https://42.fr/)
-[![Shell](https://img.shields.io/badge/Shell-Implementation-success?style=for-the-badge)](https://github.com/__azh4rrr__/minishell)
+[![Shell](https://img.shields.io/badge/Shell-Implementation-success?style=for-the-badge)](https://github.com/azh4rrr/minishell)
 [![Partner](https://img.shields.io/badge/Partner-mouchtach-orange?style=for-the-badge&logo=github)](https://github.com/mouchtach)
 
 *A fully functional Unix shell with advanced parsing and execution capabilities*
@@ -48,7 +48,7 @@ Built as a collaborative effort, this shell handles complex command parsing, pip
 
 ```bash
 # Clone the repository
-git clone https://github.com/__azh4rrr__/minishell.git
+git clone https://github.com/azh4rrr/minishell.git
 cd minishell
 
 # Install dependencies (Ubuntu/Debian)
@@ -415,7 +415,7 @@ This project demonstrates mastery of:
 
 | Developer | GitHub | Contributions |
 |-----------|---------|---------------|
-| **__azh4rrr__** | [@__azh4rrr__](https://github.com/__azh4rrr__) | Parsing, Memory Management, Testing |
+| **azh4rrr** | [@azh4rrr](https://github.com/azh4rrr) | Parsing, Memory Management, Testing |
 | **mouchtach** | [@mouchtach](https://github.com/mouchtach) | Signals, Execution, Built-ins |
 
 *Built through collaborative pair programming and code reviews*
@@ -469,6 +469,18 @@ re: # Rebuild everything
 
 *"The shell is the gateway to the system - make it robust, make it reliable."*
 
-Made with 🧠 and systematic thinking by **[__azh4rrr__](https://github.com/__azh4rrr__)** & **[mouchtach](https://github.com/mouchtach)**
+Made with 🧠 and systematic thinking by **[azh4rrr](https://github.com/azh4rrr)** & **[mouchtach](https://github.com/mouchtach)**
+
+---
+
+## 🎓 42 School Profiles
+
+<div align="center">
+
+[![42 Profile - azmakhlo](https://img.shields.io/badge/42_Profile-azmakhlo-000000?style=for-the-badge&logo=42)](https://profile-v3.intra.42.fr/users/azmakhlo)
+
+**Connect with the developers on the 42 Network!**
+
+</div>
 
 </div>
